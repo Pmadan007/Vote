@@ -26,7 +26,7 @@
       }
     }
 
-    #noButton {
+    #noButton.movable {
       position: absolute;
     }
   </style>
@@ -44,14 +44,14 @@
         Will you vote for me?
       </h2>
 
-      <!-- Button Row -->
-      <div id="responseButtons" class="flex flex-row justify-center items-center gap-8 mt-4 relative w-full h-[60px]">
+      <!-- Response buttons side by side initially -->
+      <div id="responseButtons" class="flex flex-row justify-center items-center gap-8 mt-4 relative w-full">
         <button id="yesButton"
-          class="bounce2 z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
           Yes
         </button>
         <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white transition">
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-red-700 h-12 min-w-[75px] px-4 py-2 bg-red-500 text-white transition">
           No
         </button>
       </div>
@@ -100,6 +100,9 @@
     ];
 
     noButton.addEventListener('click', function () {
+      // First time clicked, make it movable
+      noButton.classList.add("movable");
+
       if (noClickCount < 5) {
         noClickCount++;
         imageDisplay.src = imagePaths[noClickCount];
@@ -122,7 +125,6 @@
         }
       }
 
-      // Move "No" button randomly
       const maxX = window.innerWidth - noButton.offsetWidth - 20;
       const maxY = window.innerHeight - noButton.offsetHeight - 20;
       const randomX = Math.floor(Math.random() * maxX);
