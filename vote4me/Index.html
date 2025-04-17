@@ -26,54 +26,61 @@
       }
     }
 
-    #noButton {
-      position: absolute;
+    #noButton.movable {
+      position: fixed;
+      transition: all 0.2s ease;
+      z-index: 100;
     }
   </style>
 </head>
-<body class="gradient-background">
-  <div class="flex items-center justify-center min-h-screen relative">
-    <div class="flex flex-col items-center p-4 z-10">
+<body class="gradient-background overflow-hidden">
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="flex flex-col items-center p-4 relative w-full max-w-[600px]">
       <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
       
-      <p id="introText" class="text-xl font-medium text-gray-700 mt-4">
-        Hi, I’m <strong>Pranjal</strong> — contesting for <span class="text-[#bd1e59] font-bold">Social and Cultural Lead</span>.
+      <p id="introText" class="text-xl font-medium text-gray-700 mt-4 text-center">
+        Hi, I'm Pranjal, contesting for <span class="font-semibold text-[#bd1e59]">Social and Learnex Head</span>.
       </p>
 
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you support me?</h2>
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center">
+        Will you vote for me?
+      </h2>
 
-      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+      <!-- Response buttons side by side initially -->
+      <div id="responseButtons" class="flex flex-row justify-center items-center gap-8 mt-4 relative w-full">
         <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
           Yes
         </button>
         <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-red-700 h-12 min-w-[75px] px-4 py-2 bg-red-500 text-white transition">
           No
         </button>
       </div>
 
+      <!-- Bottom Buttons -->
       <div id="bottomButtons" class="flex flex-col items-center gap-4 mt-8 hidden">
         <a href="https://www.linkedin.com/in/pranjalmadan" target="_blank" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition">
           LinkedIn
         </a>
         <a href="https://www.canva.com/claim/canva-pro/" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-purple-700 transition">
-          Get Free Canva Pro
+          Free Canva Pro
         </a>
         <a href="https://www.perplexity.ai/pro" target="_blank" class="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition">
           Free 1-Month Perplexity Pro
         </a>
         <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
-          Surprise (don’t click)
+          Surprise (don't click)
         </a>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.skypack.dev/canvas-confetti"></script>
-  <script>
-    const noButton = document.getElementById('noButton');
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
     const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
     const introText = document.getElementById('introText');
@@ -81,47 +88,84 @@
     const bottomButtons = document.getElementById('bottomButtons');
 
     let noClickCount = 0;
+    let yesButtonHeight = 48;
+    let yesButtonWidth = 80;
+    let yesFontSize = 20;
+    const imagePaths = [
+      "image1.gif",
+      "image2.gif",
+      "image3.gif",
+      "image4.gif",
+      "image5.gif",
+      "image6.gif",
+      "image7.gif"
+    ];
+    
+    const noButtonTexts = [
+      "No",
+      "Pookie pls",
+      "Are you sure?",
+      "But I'd be a good core...",
+      "Still friends, right?",
+      "You can still click yes",
+      "I'll wait here if you change your mind"
+    ];
 
-    noButton.addEventListener('click', function () {
-      noClickCount++;
-      const messages = [
-        "No",
-        "Pookie pls",
-        "Are you sure?",
-        "But I’d be a good core...",
-        "Still friends, right?",
-        "You can still click yes",
-        "I’ll wait here if you change your mind"
-      ];
-      if (noClickCount < messages.length) {
-        noButton.textContent = messages[noClickCount];
+    noButton.addEventListener('click', function(e) {
+      // Prevent default button behavior
+      e.preventDefault();
+      
+      // First time clicked, make it movable
+      noButton.classList.add("movable");
+      
+      // Update the no click count (max 6)
+      noClickCount = Math.min(6, noClickCount + 1);
+      
+      // Update image
+      if (noClickCount < imagePaths.length) {
+        imageDisplay.src = imagePaths[noClickCount];
       }
-
-      const maxX = window.innerWidth - noButton.offsetWidth - 20;
-      const maxY = window.innerHeight - noButton.offsetHeight - 20;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-      noButton.style.left = `${randomX}px`;
-      noButton.style.top = `${randomY}px`;
-
-      const gifs = [
-        "image1.gif",
-        "image2.gif",
-        "image3.gif",
-        "image4.gif",
-        "image5.gif",
-        "image6.gif",
-        "image7.gif"
-      ];
-      if (noClickCount < gifs.length) {
-        imageDisplay.src = gifs[noClickCount];
+      
+      // Increase "Yes" button size (up to 6 times)
+      if (noClickCount <= 6) {
+        yesButtonHeight += 35;
+        yesButtonWidth += 35;
+        yesFontSize += 25;
+        yesButton.style.height = `${yesButtonHeight}px`;
+        yesButton.style.width = `${yesButtonWidth}px`;
+        yesButton.style.fontSize = `${yesFontSize}px`;
+      }
+      
+      // Update "No" button text
+      if (noClickCount < noButtonTexts.length) {
+        noButton.textContent = noButtonTexts[noClickCount];
+      }
+      
+      // Only move the button if we haven't reached max clicks
+      if (noClickCount <= 6) {
+        // Get button dimensions
+        const buttonWidth = noButton.offsetWidth;
+        const buttonHeight = noButton.offsetHeight;
+        
+        // Calculate safe boundaries (with some padding from edges)
+        const padding = 20;
+        const maxX = window.innerWidth - buttonWidth - padding;
+        const maxY = window.innerHeight - buttonHeight - padding;
+        
+        // Generate random position within visible screen area
+        const randomX = Math.max(padding, Math.min(maxX, Math.floor(Math.random() * maxX)));
+        const randomY = Math.max(padding, Math.min(maxY, Math.floor(Math.random() * maxY)));
+        
+        // Apply the new position to the button
+        noButton.style.left = `${randomX}px`;
+        noButton.style.top = `${randomY}px`;
       }
     });
 
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
-      valentineQuestion.textContent = "Let’s do this together!";
-      introText.textContent = "Thank you for your support — I’m all in to make this year unforgettable!";
+      valentineQuestion.textContent = "Let's do this together!";
+      introText.textContent = "Thanks for your support — can't wait to create something unforgettable with you!";
       responseButtons.style.display = 'none';
       confetti();
       bottomButtons.classList.remove('hidden');
