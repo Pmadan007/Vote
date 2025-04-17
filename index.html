@@ -25,47 +25,48 @@
         transform: translateY(-10px);
       }
     }
+
+    .moving-button {
+      position: absolute;
+    }
   </style>
 </head>
 <body class="gradient-background overflow-hidden">
-  <div class="flex items-center justify-center min-h-screen relative">
-    <div class="flex flex-col items-center p-4 z-10">
-      <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
-      
-      <p id="introText" class="text-xl font-medium text-gray-700 mt-4 text-center">
-        Hi, I’m <strong>Pranjal</strong> — contesting for <span class="text-[#bd1e59] font-bold">Social and Cultural Lead</span>.
-      </p>
+  <div class="flex flex-col items-center justify-center min-h-screen relative p-4">
+    <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
+    
+    <p id="introText" class="text-xl font-medium text-gray-700 mt-4 text-center">
+      Hi, I’m <strong>Pranjal</strong> — contesting for <span class="text-[#bd1e59] font-bold">Social and Cultural Lead</span>.
+    </p>
 
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center">Will you support me?</h2>
+    <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center">
+      Will you support me?
+    </h2>
 
-      <!-- Button wrapper for layout -->
-      <div class="flex gap-4 pt-[20px] items-center relative" style="height: 60px;">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-          Yes
-        </button>
-        <div id="noWrapper" class="relative">
-          <button id="noButton"
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white transition">
-            No
-          </button>
-        </div>
-      </div>
+    <div id="buttonContainer" class="relative h-[100px] w-full flex items-center justify-center gap-4">
+      <button id="yesButton"
+        class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+        Yes
+      </button>
+      <button id="noButton"
+        class="moving-button inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white transition">
+        No
+      </button>
+    </div>
 
-      <div id="bottomButtons" class="flex flex-col items-center gap-4 mt-8 hidden">
-        <a href="https://www.linkedin.com/in/pranjalmadan" target="_blank" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition">
-          LinkedIn
-        </a>
-        <a href="https://www.canva.com/claim/canva-pro/" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-purple-700 transition">
-          Get Free Canva Pro
-        </a>
-        <a href="https://www.perplexity.ai/pro" target="_blank" class="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition">
-          Free 1-Month Perplexity Pro
-        </a>
-        <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
-          Surprise (don’t click)
-        </a>
-      </div>
+    <div id="bottomButtons" class="flex flex-col items-center gap-4 mt-8 hidden">
+      <a href="https://www.linkedin.com/in/pranjalmadan" target="_blank" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition">
+        LinkedIn
+      </a>
+      <a href="https://www.canva.com/claim/canva-pro/" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-purple-700 transition">
+        Get Free Canva Pro
+      </a>
+      <a href="https://www.perplexity.ai/pro" target="_blank" class="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition">
+        Free 1-Month Perplexity Pro
+      </a>
+      <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
+        Surprise (don’t click)
+      </a>
     </div>
   </div>
 
@@ -76,9 +77,8 @@
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
     const introText = document.getElementById('introText');
-    const responseButtons = document.getElementById('responseButtons');
     const bottomButtons = document.getElementById('bottomButtons');
-    const noWrapper = document.getElementById('noWrapper');
+    const buttonContainer = document.getElementById('buttonContainer');
 
     let noClickCount = 0;
 
@@ -97,13 +97,12 @@
         noButton.textContent = messages[noClickCount];
       }
 
-      const maxX = window.innerWidth - noButton.offsetWidth - 50;
-      const maxY = window.innerHeight - noButton.offsetHeight - 150;
+      const maxX = window.innerWidth - noButton.offsetWidth - 20;
+      const maxY = window.innerHeight - noButton.offsetHeight - 100;
       const randomX = Math.floor(Math.random() * maxX);
       const randomY = Math.floor(Math.random() * maxY);
-      noWrapper.style.position = "absolute";
-      noWrapper.style.left = `${randomX}px`;
-      noWrapper.style.top = `${randomY}px`;
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
 
       const gifs = [
         "image1.gif",
@@ -122,8 +121,14 @@
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
       valentineQuestion.textContent = "Let’s do this together!";
-      introText.textContent = "Thank you for being a part of this — I’m ready to make college life fun, inclusive and unforgettable!";
+      introText.textContent = "Thank you for believing in me — I promise to bring good vibes, ideas, and action!";
       confetti();
+
+      // Hide Yes and No buttons
+      yesButton.style.display = "none";
+      noButton.style.display = "none";
+
+      // Show bottom buttons
       bottomButtons.classList.remove('hidden');
     });
   </script>
