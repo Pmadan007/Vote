@@ -126,14 +126,11 @@
       }
 
       // SAFELY BOUNCE WITHIN SCREEN LIMITS
-      const padding = 60;
-      const maxX = window.innerWidth - noButton.offsetWidth - padding;
-      const maxY = window.innerHeight - noButton.offsetHeight - padding;
-      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-      noButton.style.left = `${randomX}px`;
-      noButton.style.top = `${randomY}px`;
-    });
+      const padding = 50;
+const maxX = window.innerWidth - noButton.offsetWidth - padding;
+const maxY = window.innerHeight - noButton.offsetHeight - padding;
+const randomX = Math.floor(Math.random() * maxX) + padding / 2;
+const randomY = Math.floor(Math.random() * maxY) + padding / 2;
 
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
