@@ -38,6 +38,12 @@
   <div class="flex items-center justify-center min-h-screen">
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
+      
+      <!-- Added intro text -->
+      <p class="text-xl font-medium text-gray-700 mt-4 text-center">
+        Hi, I'm Pranjal, contesting for <span class="font-semibold text-[#bd1e59]">Social and Learnex Head</span>.
+      </p>
+      
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you vote for me?</h2>
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
@@ -50,13 +56,16 @@
         </button>
       </div>
 
-      <!-- Bottom Buttons (hidden initially) -->
+      <!-- Updated Bottom Buttons (hidden initially) -->
       <div id="bottomButtons" class="flex flex-col items-center gap-4 mt-8 hidden">
         <a href="https://www.linkedin.com/in/pranjalmadan" target="_blank" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition">
           LinkedIn
         </a>
-        <a href="https://pranjalmadan.social/portfolio" target="_blank" class="bg-pink-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-pink-600 transition">
-          Portfolio
+        <a href="https://www.canva.com/claim/canva-pro/" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-purple-700 transition">
+          Free Canva Pro
+        </a>
+        <a href="https://www.perplexity.ai/pro" target="_blank" class="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition">
+          Free 1-Month Perplexity Pro
         </a>
         <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
           Surprise (don't click)
@@ -138,7 +147,8 @@
 
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
-      valentineQuestion.textContent = "Yayyy!! :3";
+      // Updated message after clicking Yes
+      valentineQuestion.textContent = "Thank you for your support!";
       responseButtons.style.display = 'none';
       confetti();
       bottomButtons.classList.remove('hidden');
