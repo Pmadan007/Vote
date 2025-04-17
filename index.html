@@ -28,6 +28,7 @@
 
     #noButton.movable {
       position: absolute;
+      transition: all 0.2s ease;
     }
   </style>
 </head>
@@ -37,7 +38,7 @@
       <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
       
       <p id="introText" class="text-xl font-medium text-gray-700 mt-4 text-center">
-        Hi, I’m Pranjal, contesting for <span class="font-semibold text-[#bd1e59]">Social and Learnex Head</span>.
+        Hi, I'm Pranjal, contesting for <span class="font-semibold text-[#bd1e59]">Social and Learnex Head</span>.
       </p>
 
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center">
@@ -68,7 +69,7 @@
           Free 1-Month Perplexity Pro
         </a>
         <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
-          Surprise (don’t click)
+          Surprise (don't click)
         </a>
       </div>
     </div>
@@ -117,25 +118,30 @@
             "No",
             "Pookie pls",
             "Are you sure?",
-            "But I’d be a good core...",
+            "But I'd be a good core...",
             "Still friends, right?",
             "You can still click yes",
-            "I’ll wait here if you change your mind"
+            "I'll wait here if you change your mind"
           ][noClickCount];
         }
       }
 
       // SAFELY BOUNCE WITHIN SCREEN LIMITS
       const padding = 50;
-const maxX = window.innerWidth - noButton.offsetWidth - padding;
-const maxY = window.innerHeight - noButton.offsetHeight - padding;
-const randomX = Math.floor(Math.random() * maxX) + padding / 2;
-const randomY = Math.floor(Math.random() * maxY) + padding / 2;
+      const maxX = window.innerWidth - noButton.offsetWidth - padding;
+      const maxY = window.innerHeight - noButton.offsetHeight - padding;
+      const randomX = Math.floor(Math.random() * maxX) + padding / 2;
+      const randomY = Math.floor(Math.random() * maxY) + padding / 2;
+      
+      // Apply the new position to the button
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+    });
 
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
-      valentineQuestion.textContent = "Let’s do this together!";
-      introText.textContent = "Thanks for your support — can’t wait to create something unforgettable with you!";
+      valentineQuestion.textContent = "Let's do this together!";
+      introText.textContent = "Thanks for your support — can't wait to create something unforgettable with you!";
       responseButtons.style.display = 'none';
       confetti();
       bottomButtons.classList.remove('hidden');
