@@ -36,8 +36,8 @@
     <div class="flex flex-col items-center p-4 z-10">
       <img id="imageDisplay" src="image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
       
-      <p class="text-xl font-medium text-gray-700 mt-4">
-        Hi, I’m <strong>Pranjal</strong> — contesting for <span class="text-[#bd1e59] font-bold">Social Lead</span>, <span class="text-[#bd1e59] font-bold">Learnex</span>, and <span class="text-[#bd1e59] font-bold">Cultural Lead</span>.
+      <p id="introText" class="text-xl font-medium text-gray-700 mt-4">
+        Hi, I’m <strong>Pranjal</strong> — contesting for <span class="text-[#bd1e59] font-bold">Social and Cultural Lead</span>.
       </p>
 
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you support me?</h2>
@@ -57,8 +57,11 @@
         <a href="https://www.linkedin.com/in/pranjalmadan" target="_blank" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition">
           LinkedIn
         </a>
-        <a href="https://pranjalmadan.social/portfolio" target="_blank" class="bg-pink-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-pink-600 transition">
-          Portfolio
+        <a href="https://www.canva.com/claim/canva-pro/" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-purple-700 transition">
+          Get Free Canva Pro
+        </a>
+        <a href="https://www.perplexity.ai/pro" target="_blank" class="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition">
+          Free 1-Month Perplexity Pro
         </a>
         <a href="https://wa.link/bqahdl" class="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition">
           Surprise (don’t click)
@@ -67,11 +70,13 @@
     </div>
   </div>
 
+  <script src="https://cdn.skypack.dev/canvas-confetti"></script>
   <script>
     const noButton = document.getElementById('noButton');
     const yesButton = document.getElementById('yesButton');
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
+    const introText = document.getElementById('introText');
     const responseButtons = document.getElementById('responseButtons');
     const bottomButtons = document.getElementById('bottomButtons');
 
@@ -115,8 +120,10 @@
 
     yesButton.addEventListener('click', () => {
       imageDisplay.src = 'image7.gif';
-      valentineQuestion.textContent = "Yayyy!! :3";
+      valentineQuestion.textContent = "Let’s do this together!";
+      introText.textContent = "Thank you for your support — I’m all in to make this year unforgettable!";
       responseButtons.style.display = 'none';
+      confetti();
       bottomButtons.classList.remove('hidden');
     });
   </script>
