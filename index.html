@@ -125,10 +125,12 @@
         }
       }
 
-      const maxX = window.innerWidth - noButton.offsetWidth - 20;
-      const maxY = window.innerHeight - noButton.offsetHeight - 20;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
+      // SAFELY BOUNCE WITHIN SCREEN LIMITS
+      const padding = 60;
+      const maxX = window.innerWidth - noButton.offsetWidth - padding;
+      const maxY = window.innerHeight - noButton.offsetHeight - padding;
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
       noButton.style.left = `${randomX}px`;
       noButton.style.top = `${randomY}px`;
     });
