@@ -149,6 +149,10 @@
       imageDisplay.src = 'image7.gif';
       // Updated message after clicking Yes
       valentineQuestion.textContent = "You just earned +10 karma. Thanks, legend! Big brain move. Appreciate the click!";
+      
+      // Hide the introduction text
+      document.querySelector('p').style.display = 'none'; 
+
       responseButtons.style.display = 'none';
       confetti();
       bottomButtons.classList.remove('hidden');
