@@ -26,9 +26,9 @@
       }
     }
 
+    /* Remove the automatic transition initially */
     #noButton.movable {
       position: fixed;
-      transition: all 0.2s ease;
       z-index: 100;
     }
   </style>
@@ -111,12 +111,46 @@
       "I'll wait here if you change your mind"
     ];
 
+    // Store the initial position of the "No" button
+    let noButtonInitialPosition = null;
+
+    // Function to move the "No" button randomly
+    function moveNoButton() {
+      // Get button dimensions
+      const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
+      
+      // Calculate safe boundaries (with some padding from edges)
+      const padding = 20;
+      const maxX = window.innerWidth - buttonWidth - padding;
+      const maxY = window.innerHeight - buttonHeight - padding;
+      
+      // Generate random position within visible screen area
+      // Ensure it's not too close to the top where the Yes button might be
+      const randomX = Math.max(padding, Math.min(maxX, Math.floor(Math.random() * maxX)));
+      const randomY = Math.max(padding + 100, Math.min(maxY, Math.floor(Math.random() * (maxY - 150)) + 150));
+      
+      // Apply the new position to the button
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+    }
+
     noButton.addEventListener('click', function(e) {
       // Prevent default button behavior
       e.preventDefault();
       
-      // First time clicked, make it movable
-      noButton.classList.add("movable");
+      // If this is the first click, store the initial position
+      if (noClickCount === 0) {
+        // Save the current position of the No button in the DOM
+        const rect = noButton.getBoundingClientRect();
+        noButtonInitialPosition = {
+          left: rect.left,
+          top: rect.top
+        };
+        
+        // Make it movable
+        noButton.classList.add("movable");
+      }
       
       // Update the no click count (max 6)
       noClickCount = Math.min(6, noClickCount + 1);
@@ -143,22 +177,7 @@
       
       // Only move the button if we haven't reached max clicks
       if (noClickCount <= 6) {
-        // Get button dimensions
-        const buttonWidth = noButton.offsetWidth;
-        const buttonHeight = noButton.offsetHeight;
-        
-        // Calculate safe boundaries (with some padding from edges)
-        const padding = 20;
-        const maxX = window.innerWidth - buttonWidth - padding;
-        const maxY = window.innerHeight - buttonHeight - padding;
-        
-        // Generate random position within visible screen area
-        const randomX = Math.max(padding, Math.min(maxX, Math.floor(Math.random() * maxX)));
-        const randomY = Math.max(padding, Math.min(maxY, Math.floor(Math.random() * maxY)));
-        
-        // Apply the new position to the button
-        noButton.style.left = `${randomX}px`;
-        noButton.style.top = `${randomY}px`;
+        moveNoButton();
       }
     });
 
